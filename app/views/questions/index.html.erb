@@ -2,17 +2,9 @@
 <%= link_to("Ask New Question", new_question_path) %>
 <ul class = "question-list">
   <% @questions.each do |question| %>
-    <li>
-      Votes: <span id="<%="#{question.id}"%>-votecount"><%=question.votecount%></span> - <%= link_to("#{question.title}", question) %>
-      <%= link_to (upvote_question_path(question)), :id => "question-upvote", remote: true, method: :post do %>
-        <i class="fa fa-paper-plane"></i>
-      <% end %>
-      <%= link_to (downvote_question_path(question)), :id => "question-upvote", remote: true, method: :post do %>
-         <i class="fa fa-wheelchair"></i>
-      <% end %>
-    </li>
-    <p><%= question.content %></p>
+    <%= render question %>
   <% end %>
 </ul>
 
+<%= render "form" %>
 

@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
   def index
     @questions = Question.all
+    @question = Question.new
+
   end
 
   def show
@@ -11,13 +13,19 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-
-
   end
 
   def create
-    @question = Question.create(question_params)
-    redirect_to questions_path
+    @question = Question.new(question_params)
+    respond_to do |format|
+      if @question.save
+        format.html {redirect_to questions_path}
+        format.js {render :json, @question}
+      else
+        format.html {redirect_to new_question_path}
+        format.js {render :json, @question}
+      end
+    end
   end
 
   def destroy
@@ -44,12 +52,6 @@ class QuestionsController < ApplicationController
   def upvote
     @question = Question.find(params[:id])
     @question.upvote
-
-    # if request.xhr?
-    #   content_type :json
-    #   return @question.id.to_json
-    # end
-
     respond_to do |format|
       format.html
       format.json {render json: @question}

@@ -1,3 +1,12 @@
+<% if question.errors.any? %>
+  <h2>The following errors prevented the question from being submitted:</h2>
+  <ul>
+    <% question.errors.full_messages each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for @question do |f| %>
   <%= f.label :title %>:
   <%= f.text_field :title %>
