@@ -19,11 +19,12 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     respond_to do |format|
       if @question.save
+        format.js {@question.to_json}
         format.html {redirect_to questions_path}
-        format.js {render :json, @question}
+        #format.json {render :json, @question}
       else
         format.html {redirect_to new_question_path}
-        format.js {render :json, @question}
+        format.js {@question.to_json}
       end
     end
   end
@@ -63,11 +64,6 @@ class QuestionsController < ApplicationController
   def downvote
     @question = Question.find(params[:id])
     @question.downvote
-
-    # if request.xhr?
-    #   content_type :json
-    #   return @question.id.to_json
-    # end
 
     respond_to do |format|
       format.html

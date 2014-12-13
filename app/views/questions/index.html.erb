@@ -1,10 +1,8 @@
 <h1>Questions List:</h1>
 <%= link_to("Ask New Question", new_question_path) %>
 <ul class = "question-list">
-  <% @questions.each do |question| %>
-    <%= render question %>
-  <% end %>
+  <%= render @questions %>
 </ul>
-
 <%= render "form" %>
+
 
