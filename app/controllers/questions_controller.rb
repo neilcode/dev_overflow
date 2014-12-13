@@ -7,7 +7,6 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answer = Answer.create(title: "new answer", content: "place content here")
     @answers = @question.answers
   end
 

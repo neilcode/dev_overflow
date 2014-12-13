@@ -7,7 +7,7 @@
 
   <%= link_to("Edit", edit_question_path) %>
 </p>
-<%= form_for [@question, @question.answers.build] do |f| %>
+<%= form_for [@question, @question.answers.build], remote: true, method: :post do |f| %>
   <%= f.label :title %>:
   <%= f.text_field :title %>
 
@@ -17,13 +17,8 @@
   <%= f.submit %>
 <% end %>
 
-<ul>
-  <% @answers.each do |answer| %>
-  <li>
-    <%= answer.title %>
-  </li>
-  <p><%= answer.content %></p>
-  <% end %>
+<ul class="answer-list">
+  <%= render @answers %>
 </ul>
 
 
